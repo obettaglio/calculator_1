@@ -45,24 +45,45 @@ def calculator_rules(user_input):
             result.append("Quit")
 
         elif calculation_sign == "square" or calculation_sign == "cube":
-            if len(inputs_list) == 2:
+            if len(inputs_list) >= 2:
+                square_cube_result = []
                 try:
-                    num1 = float(user_input.split(" ")[1])
+                    for num in inputs_list[1:]:
+                        num1 = float(num)
+                        if calculation_sign == "square":
+                            square_cube_result.append(float("%.2f" % square(num1)))
 
+                        else:
+                            square_cube_result.append(float("%.2f" % cube(num1)))
+                    result.append(square_cube_result)
                 except:
                     result.append("Your input is not numerical.")
                     break
 
-                if calculation_sign == "square":
-                    result.append("%.2f" % square(num1))
-
-                else:
-                    result.append("%.2f" % cube(num1))
-
             else:
                 result.append("Invalid number of arguments.")
 
-        elif calculation_sign in ["+", "-", "*", "/", "pow", "mod"]:
+        elif calculation_sign in ["+", "-"]:
+            if len(inputs_list) == 2:
+                result.append(inputs_list[1])
+            elif len(inputs_list) >= 3:
+                try:
+                    numerical_list = []
+                    for number in user_input.split(" ")[1:]:
+                        number = float(number)
+                        numerical_list.append(number)
+
+                    #num1 = float(user_input.split(" ")[1])
+                    #num2 = float(user_input.split(" ")[2])
+                except:
+                    result.append("Your input is not numerical.")
+                    break
+
+                result.append(my_reduce(calculation_sign, numerical_list))
+            else:
+                result.append("Invalid number of arguments.")
+
+        elif calculation_sign in ["*", "/", "pow", "mod"]:
             if len(inputs_list) >= 3:
                 try:
                     numerical_list = []
