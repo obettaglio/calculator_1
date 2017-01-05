@@ -1,0 +1,14 @@
+12.00
+Your input is not numerical.
+Invalid number of arguments.
+12.00
+40.00
+2.00
+The denominator is zero.
+Invalid number of arguments.
+4.00
+27.00
+8.00
+0.00
+Sorry we do not support this calculation.
+Quit

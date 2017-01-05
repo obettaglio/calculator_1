@@ -1,11 +1,14 @@
-pow 3 2
-square 3 4 5 
-sdfsd 
-+ 1 2 3 4
-* 3 4
-- 5 4 3
++ 10 2
+- 20 + 3
++ 1
+- 20 8
+* 2 4 5
+/ 20 2 5
 / 2 0 1
-mod 10
+square 3 4 5
+square 2
+cube 3
+pow 2 3
 mod 10 3 1
-square 4
+dgsdhf
 q
