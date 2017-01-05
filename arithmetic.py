@@ -19,7 +19,8 @@ def multiply(num1, num2):
 def divide(num1, num2):
     """Return the quotient of two numbers as a float"""
     if num2 == 0:
-        print "The denominator is zero."
+        return "The denominator is zero."
+
     else:
         return float(num1) / num2
 
@@ -57,82 +58,97 @@ def my_reduce(function_name, operable_numbers):
                 partial_result = subtract(partial_result, operable_numbers[i])
             elif function_name == "*":
                 partial_result = multiply(partial_result, operable_numbers[i])
-            elif function_name == "/":
+            elif function_name == "/" and isinstance(partial_result, float):
                 partial_result = divide(partial_result, operable_numbers[i])
             elif function_name == "pow":
                 partial_result = power(partial_result, operable_numbers[i])
             elif function_name == "mod":
                 partial_result = mod(partial_result, operable_numbers[i])
+            else:
+                return "The denominator is zero."
         i = i + 1
     return "%.2f" % partial_result
 
 
-# def user_input(new_file):
-#     open(new_file)
+def calculator_rules(user_input):
 
-while True:
+    while True:
 
-    user_input = raw_input("Please input prefix equation: ")
+        #user_input = raw_input("Please input prefix equation: ")
 
-    inputs_list = user_input.split(" ")
-    calculation_sign = inputs_list[0]
+        inputs_list = user_input.split(" ")
+        calculation_sign = inputs_list[0]
 
-    if calculation_sign == "q":
-        break
+        if calculation_sign == "q":
+            return "Quit"
+            break
 
-    elif calculation_sign == "square" or calculation_sign == "cube":
-        if len(inputs_list) == 2:
-            try:
-                num1 = float(user_input.split(" ")[1])
+        elif calculation_sign == "square" or calculation_sign == "cube":
+            if len(inputs_list) == 2:
+                try:
+                    num1 = float(user_input.split(" ")[1])
 
-            except:
-                print "Your input is not numerical."
-                continue
+                except:
+                    return "Your input is not numerical."
+                    break
 
-            if calculation_sign == "square":
-                print "%.2f" % square(num1)
+                if calculation_sign == "square":
+                    return "%.2f" % square(num1)
+
+                else:
+                    return "%.2f" % cube(num1)
+                break
 
             else:
-                print "%.2f" % cube(num1)
+                return "Invalid number of arguments."
+                break
+
+        elif calculation_sign in ["+", "-", "*", "/", "pow", "mod"]:
+            if len(inputs_list) >= 3:
+                try:
+                    numerical_list = []
+                    for number in user_input.split(" ")[1:]:
+                        number = float(number)
+                        numerical_list.append(number)
+
+                    #num1 = float(user_input.split(" ")[1])
+                    #num2 = float(user_input.split(" ")[2])
+                except:
+                    return "Your input is not numerical."
+                    break
+
+                if calculation_sign == "+":
+                    return my_reduce(calculation_sign, numerical_list)
+
+                elif calculation_sign == "-":
+                    return my_reduce(calculation_sign, numerical_list)
+
+                elif calculation_sign == "*":
+                    return my_reduce(calculation_sign, numerical_list)
+
+                elif calculation_sign == "/":
+                    return my_reduce(calculation_sign, numerical_list)
+
+                elif calculation_sign == "pow":
+                    return my_reduce(calculation_sign, numerical_list)
+
+                elif calculation_sign == "mod":
+                    return my_reduce(calculation_sign, numerical_list)
+
+                break
+            else:
+                return "Invalid number of arguments."
+                break
+
         else:
-            print "Invalid number of arguments."
-            continue
+            return "Sorry we do not support this calculation."
+            break
 
-    elif calculation_sign in ["+", "-", "*", "/", "pow", "mod"]:
-        if len(inputs_list) >= 3:
-            try:
-                numerical_list = []
-                for number in user_input.split(" ")[1:]:
-                    number = float(number)
-                    numerical_list.append(number)
 
-                #num1 = float(user_input.split(" ")[1])
-                #num2 = float(user_input.split(" ")[2])
-            except:
-                print "Your input is not numerical."
-                continue
+def user_input():
+    the_file = open("operation_command.txt")
+    for line in the_file:
+        line = line.rstrip()
+        print calculator_rules(line)
 
-            if calculation_sign == "+":
-                print my_reduce(calculation_sign, numerical_list)
-
-            elif calculation_sign == "-":
-                print my_reduce(calculation_sign, numerical_list)
-
-            elif calculation_sign == "*":
-                print my_reduce(calculation_sign, numerical_list)
-
-            elif calculation_sign == "/":
-                print my_reduce(calculation_sign, numerical_list)
-
-            elif calculation_sign == "pow":
-                print my_reduce(calculation_sign, numerical_list)
-
-            elif calculation_sign == "mod":
-                print my_reduce(calculation_sign, numerical_list)
-        else:
-            print "Invalid number of arguments."
-            continue
-
-    else:
-        print "Sorry we do not support this calculation."
-        continue
+user_input()
